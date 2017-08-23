@@ -47,6 +47,7 @@ IF NOT DEFINED KUDU_SYNC_CMD (
   :: Locally just running "kuduSync" would also work
   SET KUDU_SYNC_CMD=%appdata%\npm\kuduSync.cmd
 )
+
 IF NOT DEFINED DEPLOYMENT_TEMP (
   SET DEPLOYMENT_TEMP=%temp%\___deployTemp%random%
   SET CLEAN_LOCAL_DEPLOYMENT_TEMP=true
@@ -73,7 +74,11 @@ IF /I "TwitterHashtagSearch.sln" NEQ "" (
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
-call npm install
+IF /I "package.json" NEQ "" (
+	echo Installing node modules
+	call npm install
+	IF !ERRORLEVEL! NEQ 0 goto error
+)
 
 :: 2. Build to the temporary path
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
