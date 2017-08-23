@@ -48,6 +48,8 @@ export class SearchComponent {
     constructor(private _tweetService: TweetService) {
         this.hashtag = '';
         this.disableSearch = false;
+        this.errorMessage = '';
+
         this.tweetResults = {
             count: 15,
             maxId: '',
@@ -62,20 +64,22 @@ export class SearchComponent {
         this.tweetResults.tweets = [];
     }
 
-    onError(message: string) {
-        this.errorMessage = message;
-    }
+    setErrorMsg = (message: string) => this.errorMessage = message;
 
     find(count: number, maxId: string) {
-        const value = this.hashtag;
-        let params: SearchParams = { value, count, maxId };
+        let params: SearchParams = { value: this.hashtag, count: 15, maxId: this.tweetResults.maxId };
+        this.disableSearch = false;
+        this.setErrorMsg('');
 
         this._tweetService.getByHashtag(Constants.BASE_SEARCH_ENDPOINT, params)
             .subscribe(data => {
                 this.tweetResults = JSON.parse(data['_body']);
+
+                //can't load more
                 if (this.tweetResults.count < 15) this.disableSearch = true;
-                this.tweetResults.count = 15;
-            }, err => this.onError('There was an issue loading the tweets! Please try again.'));
+                if (this.tweetResults.count === 0) this.setErrorMsg("No recent popular tweets by that hashtag. Try again!");
+
+            }, err => this.setErrorMsg('There was an issue loading the tweets! Please try again.'));
     }
 
 }

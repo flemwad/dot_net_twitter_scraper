@@ -75,9 +75,10 @@ namespace TwitterHashtagSearchNg2.Controllers
                     })
                 );
 
+
             return this.Json(new SearchResponse {
                 count = searchResponse.Statuses.Count,
-                maxId = searchResponse.Statuses.Last().StatusID.ToString() ?? String.Empty,
+                maxId = searchResponse.Statuses.Count > 0 ? searchResponse.Statuses.Last().StatusID.ToString() : String.Empty,
                 tweets = tweetsToReturn
             });
         }

@@ -14,9 +14,12 @@ var tweet_service_1 = require("../../services/tweet.service");
 var constants_1 = require("../../shared/constants");
 var SearchComponent = (function () {
     function SearchComponent(_tweetService) {
+        var _this = this;
         this._tweetService = _tweetService;
+        this.setErrorMsg = function (message) { return _this.errorMessage = message; };
         this.hashtag = '';
         this.disableSearch = false;
+        this.errorMessage = '';
         this.tweetResults = {
             count: 15,
             maxId: '',
@@ -29,20 +32,20 @@ var SearchComponent = (function () {
         this.tweetResults.maxId = '';
         this.tweetResults.tweets = [];
     };
-    SearchComponent.prototype.onError = function (message) {
-        this.errorMessage = message;
-    };
     SearchComponent.prototype.find = function (count, maxId) {
         var _this = this;
-        var value = this.hashtag;
-        var params = { value: value, count: count, maxId: maxId };
+        var params = { value: this.hashtag, count: 15, maxId: this.tweetResults.maxId };
+        this.disableSearch = false;
+        this.setErrorMsg('');
         this._tweetService.getByHashtag(constants_1.Constants.BASE_SEARCH_ENDPOINT, params)
             .subscribe(function (data) {
             _this.tweetResults = JSON.parse(data['_body']);
+            //can't load more
             if (_this.tweetResults.count < 15)
                 _this.disableSearch = true;
-            _this.tweetResults.count = 15;
-        }, function (err) { return _this.onError('There was an issue loading the tweets! Please try again.'); });
+            if (_this.tweetResults.count === 0)
+                _this.setErrorMsg("No recent popular tweets by that hashtag. Try again!");
+        }, function (err) { return _this.setErrorMsg('There was an issue loading the tweets! Please try again.'); });
     };
     SearchComponent = __decorate([
         core_1.Component({
