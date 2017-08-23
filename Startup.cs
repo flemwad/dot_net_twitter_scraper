@@ -1,4 +1,4 @@
-﻿namespace TwitterHashtagSearchNg2
+﻿namespace TwitterHashtagSearch
 {
     public partial class Startup
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TwitterHashtagSearchNg2.Controllers
+namespace TwitterHashtagSearch.Controllers
 {
     public class HomeController : Controller
     {

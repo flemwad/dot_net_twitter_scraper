@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace TwitterHashtagSearchNg2
+namespace TwitterHashtagSearch
 {
     public static class WebApiConfig
     {

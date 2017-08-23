@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TwitterHashtagSearchNg2.Models
+namespace TwitterHashtagSearch.Models
 {
 
     public partial class Tweet

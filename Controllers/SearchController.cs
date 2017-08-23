@@ -8,9 +8,9 @@ using LinqToTwitter;
 using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
-using TwitterHashtagSearchNg2.Models;
+using TwitterHashtagSearch.Models;
 
-namespace TwitterHashtagSearchNg2.Controllers
+namespace TwitterHashtagSearch.Controllers
 {
     public class SearchController : ApiController
     {

@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace TwitterHashtagSearchNg2.Controllers
+namespace TwitterHashtagSearch.Controllers
 {
     public class FavoriteController : ApiController
     {
