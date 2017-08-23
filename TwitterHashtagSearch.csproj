@@ -193,9 +193,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="package.json" />
     <Content Include=".gitignore" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -214,7 +211,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
