@@ -20,11 +20,11 @@ import { Tweet } from '../../../models/tweet.models';
                     </button>
                     Tweet Liked!
                 </div>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="tweetLikeErrors[tweetData.id] === true">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="likedAlready[tweetData.id] === true">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{errorMessage}}
+                    You have already liked this tweet!
                 </div>
                 <div class="container">
                     <div class="row">
@@ -32,7 +32,7 @@ import { Tweet } from '../../../models/tweet.models';
                             {{tweetData.text}}
                         </div>
                         <div class="col-3 text-center">
-                            <button class="btn btn-info" (click)="favoriteStatus(tweetData.id)" title="like tweet" [disabled]="likedTweets[tweetData.id]"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                            <button class="btn btn-info" (click)="favoriteStatus(tweetData.id)" title="like tweet" [disabled]="likedTweets[tweetData.id] || likedAlready[tweetData.id]"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </div>
@@ -53,12 +53,11 @@ export class TweetCardComponent {
     @Output() onLiked = new EventEmitter<string>();
 
     likedTweets: any;
-    tweetLikeErrors: any;
-    errorMessage: string;
+    likedAlready: any;
 
     constructor(private _tweetService: TweetService) {
         this.likedTweets = {};
-        this.tweetLikeErrors = {};
+        this.likedAlready = {};
     }
 
     favoriteStatus(statusId: string) {
@@ -69,8 +68,7 @@ export class TweetCardComponent {
                     this.onLiked.emit(statusId);
                 }
             }, err => {
-                this.tweetLikeErrors[statusId] = true;
-                this.errorMessage = JSON.parse(err['_body']).ExceptionMessage;
+                if (JSON.parse(err['_body'])) this.likedAlready[statusId] = true;
             });
     }
 }

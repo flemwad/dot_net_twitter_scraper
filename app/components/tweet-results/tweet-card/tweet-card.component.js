@@ -18,7 +18,8 @@ var TweetCardComponent = (function () {
         this._tweetService = _tweetService;
         this.onLiked = new core_1.EventEmitter();
         this.likedTweets = {};
-        this.tweetLikeErrors = {};
+        this.likedErrors = {};
+        this.likedAlready = {};
     }
     TweetCardComponent.prototype.favoriteStatus = function (statusId) {
         var _this = this;
@@ -29,8 +30,10 @@ var TweetCardComponent = (function () {
                 _this.onLiked.emit(statusId);
             }
         }, function (err) {
-            _this.tweetLikeErrors[statusId] = true;
-            _this.errorMessage = JSON.parse(err['_body']).ExceptionMessage;
+            if (JSON.parse(err['_body']).ExceptionMessage.indexOf('already favorited') >= 0)
+                _this.likedAlready[statusId] = true;
+            else
+                _this.likedErrors[statusId] = true;
         });
     };
     __decorate([
@@ -44,7 +47,7 @@ var TweetCardComponent = (function () {
     TweetCardComponent = __decorate([
         core_1.Component({
             selector: 'tweet-card',
-            template: "\n        <div class=\"card\">\n            <div class=\"card-header text-center\">\n                <img [src]=\"tweetData.picture\" class=\"center-block img-responsive\" />\n                <br />\n                <a href=\"https://twitter.com/{{tweetData.handle}}\">@{{tweetData.handle}}</a>\n            </div>\n            <div class=\"card-block\">\n                <div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\" *ngIf=\"likedTweets[tweetData.id] === true\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    Tweet Liked!\n                </div>\n                <div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\" *ngIf=\"tweetLikeErrors[tweetData.id] === true\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    {{errorMessage}}\n                </div>\n                <div class=\"container\">\n                    <div class=\"row\">\n                        <div class=\"col-9\">\n                            {{tweetData.text}}\n                        </div>\n                        <div class=\"col-3 text-center\">\n                            <button class=\"btn btn-info\" (click)=\"favoriteStatus(tweetData.id)\" title=\"like tweet\" [disabled]=\"likedTweets[tweetData.id]\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i></button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"card-footer text-muted text-center\">\n                by {{tweetData.author}} at {{tweetData.timestamp | date:'medium'}}\n                <br />\n                Likes: <span class=\"badge badge-warning\">{{tweetData.likeNumber}}</span>\n                Retweets: <span class=\"badge badge-info\">{{tweetData.retweetNumber}}</span>\n            </div>\n        </div>\n        <hr />\n    "
+            template: "\n        <div class=\"card\">\n            <div class=\"card-header text-center\">\n                <img [src]=\"tweetData.picture\" class=\"center-block img-responsive\" />\n                <br />\n                <a href=\"https://twitter.com/{{tweetData.handle}}\">@{{tweetData.handle}}</a>\n            </div>\n            <div class=\"card-block\">\n                <div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\" *ngIf=\"likedTweets[tweetData.id] === true\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    Tweet Liked!\n                </div>\n                <div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\" *ngIf=\"likedAlready[tweetData.id] === true\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    You have already liked this tweet!\n                </div>\n                <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" *ngIf=\"likedErrors[tweetData.id] === true\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    Something went wrong! Try again soon\n                </div>\n                <div class=\"container\">\n                    <div class=\"row\">\n                        <div class=\"col-9\">\n                            {{tweetData.text}}\n                        </div>\n                        <div class=\"col-3 text-center\">\n                            <button class=\"btn btn-info\" (click)=\"favoriteStatus(tweetData.id)\" title=\"like tweet\" [disabled]=\"likedTweets[tweetData.id] || likedAlready[tweetData.id]\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i></button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"card-footer text-muted text-center\">\n                by {{tweetData.author}} at {{tweetData.timestamp | date:'medium'}}\n                <br />\n                Likes: <span class=\"badge badge-warning\">{{tweetData.likeNumber}}</span>\n                Retweets: <span class=\"badge badge-info\">{{tweetData.retweetNumber}}</span>\n            </div>\n        </div>\n        <hr />\n    "
         }),
         __metadata("design:paramtypes", [tweet_service_1.TweetService])
     ], TweetCardComponent);
