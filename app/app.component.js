@@ -12,8 +12,8 @@ var AppComponent = (function () {
     }
     AppComponent = __decorate([
         core_1.Component({
-            selector: "twit-hashtag-ng2-app",
-            template: "\n        <nav class=\"navbar navbar-light bg-faded\">\n            <h1>NG2 Hashtag Search</h1>\n        </nav>\n        <div class='container'>\n            <router-outlet></router-outlet>\n        </div>       \n"
+            selector: "twit-hashtag-ng-app",
+            template: "\n        <nav class=\"navbar navbar-light bg-faded\">\n            <h1>Angular Hashtag Search</h1>\n        </nav>\n        <div class='container'>\n            <router-outlet></router-outlet>\n        </div>       \n"
         })
     ], AppComponent);
     return AppComponent;

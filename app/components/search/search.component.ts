@@ -35,6 +35,7 @@ import { Tweet, SearchParams, SearchResponse } from '../../models/tweet.models';
                 <button type="submit" class="btn btn-danger" *ngIf="tweetResults.tweets.length > 0" (click)="clear()">x</button>
             </div>
         </div>
+        <small class="input-text text-muted">filtered by popular tweets only</small>
         <tweet-results [results]="tweetResults.tweets"></tweet-results>
     `
 })
