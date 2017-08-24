@@ -11,9 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/catch");
 var TweetService = (function () {
     function TweetService(_http) {
         this._http = _http;

@@ -11,7 +11,7 @@ import { Tweet } from '../../../models/tweet.models';
             <div class="card-header text-center">
                 <img [src]="tweetData.picture" class="center-block img-responsive" />
                 <br />
-                @ {{tweetData.handle}}
+                <a href="https://twitter.com/{{tweetData.handle}}">@{{tweetData.handle}}</a>
             </div>
             <div class="card-block">
                 <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="likedTweets[tweetData.id] === true">

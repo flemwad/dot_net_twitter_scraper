@@ -241,7 +241,6 @@
     <TypeScriptCompile Include="app\models\tweet.models.ts" />
     <TypeScriptCompile Include="app\services\tweet.service.ts" />
     <TypeScriptCompile Include="app\shared\constants.ts" />
-    <TypeScriptCompile Include="app\shared\enum.ts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -249,9 +248,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="nuget.config">
       <SubType>Designer</SubType>
